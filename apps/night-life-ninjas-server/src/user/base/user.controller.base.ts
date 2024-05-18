@@ -25,6 +25,7 @@ import { UserUpdateInput } from "./UserUpdateInput";
 import { OrderFindManyArgs } from "../../order/base/OrderFindManyArgs";
 import { Order } from "../../order/base/Order";
 import { OrderWhereUniqueInput } from "../../order/base/OrderWhereUniqueInput";
+import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 
 export class UserControllerBase {
   constructor(protected readonly service: UserService) {}
@@ -260,6 +261,23 @@ export class UserControllerBase {
     });
   }
 
+  @common.Get("/profile")
+  @swagger.ApiOkResponse({
+    type: UserFindUniqueArgs,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async GetUserProfile(
+    @common.Body()
+    body: UserWhereUniqueInput
+  ): Promise<UserFindUniqueArgs> {
+    return this.service.GetUserProfile(body);
+  }
+
   @common.Get("/:id/login-user")
   @swagger.ApiOkResponse({
     type: String,
@@ -309,6 +327,23 @@ export class UserControllerBase {
     body: UserWhereUniqueInput
   ): Promise<string> {
     return this.service.RegisterUser(body);
+  }
+
+  @common.Patch("/profile")
+  @swagger.ApiOkResponse({
+    type: UserCreateInput,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async UpdateUserProfile(
+    @common.Body()
+    body: UserWhereUniqueInput
+  ): Promise<UserCreateInput> {
+    return this.service.UpdateUserProfile(body);
   }
 
   @common.Post("/login")

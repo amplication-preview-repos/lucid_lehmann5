@@ -105,6 +105,14 @@ export class UserResolverBase {
     return results;
   }
 
+  @graphql.Query(() => UserFindUniqueArgs)
+  async GetUserProfile(
+    @graphql.Args()
+    args: UserFindUniqueArgs
+  ): Promise<UserFindUniqueArgs> {
+    return this.service.GetUserProfile(args);
+  }
+
   @graphql.Query(() => String)
   async LoginUser(
     @graphql.Args()
@@ -127,6 +135,14 @@ export class UserResolverBase {
     args: string
   ): Promise<string> {
     return this.service.RegisterUser(args);
+  }
+
+  @graphql.Mutation(() => UserCreateInput)
+  async UpdateUserProfile(
+    @graphql.Args()
+    args: UserCreateInput
+  ): Promise<UserCreateInput> {
+    return this.service.UpdateUserProfile(args);
   }
 
   @graphql.Query(() => UserWhereUniqueInput)

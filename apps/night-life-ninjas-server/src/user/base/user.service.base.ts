@@ -15,6 +15,7 @@ import {
   User as PrismaUser,
   Order as PrismaOrder,
 } from "@prisma/client";
+import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { UserCreateInput } from "./UserCreateInput";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 
@@ -61,6 +62,9 @@ export class UserServiceBase {
       })
       .orders(args);
   }
+  async GetUserProfile(args: UserFindUniqueArgs): Promise<UserFindUniqueArgs> {
+    throw new Error("Not implemented");
+  }
   async LoginUser(args: string): Promise<string> {
     throw new Error("Not implemented");
   }
@@ -68,6 +72,9 @@ export class UserServiceBase {
     throw new Error("Not implemented");
   }
   async RegisterUser(args: string): Promise<string> {
+    throw new Error("Not implemented");
+  }
+  async UpdateUserProfile(args: UserCreateInput): Promise<UserCreateInput> {
     throw new Error("Not implemented");
   }
   async UserLogin(args: UserWhereUniqueInput): Promise<UserWhereUniqueInput> {
